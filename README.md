@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://nutrivigil-demo.onrender.com" target="_blank">
+  <a href="https://nutf.onrender.com" target="_blank">
     <img src="https://img.shields.io/badge/Live%20Demo-00C853?style=for-the-badge&logo=google-chrome&logoColor=white" />
   </a>
   <img src="https://img.shields.io/badge/AI%20Food%20Scan-Gemini%20v2.5-5859EA?style=for-the-badge&logo=google&logoColor=white" />
