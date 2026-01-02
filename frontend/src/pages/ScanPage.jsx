@@ -10,11 +10,14 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const STORAGE_KEY = "nutriguard";
 
 function ScanPage() {
   const { theme } = useTheme();
+  const {t}=useTranslation();
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -62,8 +65,8 @@ function ScanPage() {
 
 
   const handleScan = async () => {
-    if (!selectedFile) return setError("Please select an image file");
-    if (!condition) return setError("Please set your health condition first");
+    if (!selectedFile) return setError(t("errors.noImage"));
+    if (!condition) return setError(t("errors.noCondition"));
 
     setLoading(true);
     setError(null);
@@ -120,7 +123,7 @@ function ScanPage() {
                 : "from-purple-600 to-blue-600"
               }`}
           >
-            Scan Food
+            {t("scan.title")}
           </h1>
 
           <p className={`text-sm mb-4 transition-colors ${theme === 'dark' ? "text-gray-300" : "text-gray-600"
@@ -140,7 +143,7 @@ function ScanPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
               >
-                Condition: {condition}
+                {t("scan.condition")}: {t(`conditions.${condition}`)}
               </motion.div>
             ) : (
               <motion.div
@@ -153,13 +156,13 @@ function ScanPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
               >
-                Please set your condition in{" "}
+                {t("scan.setCondition")}{" "}
                 <Link
                   to="/profile"
                   className={`underline font-semibold transition-colors ${theme === 'dark' ? "text-blue-300" : "text-blue-600"
                     }`}
                 >
-                  My Profile
+                  {t("nav.profile")}
                 </Link>
               </motion.div>
             )}
@@ -247,10 +250,10 @@ function ScanPage() {
             {loading ? (
               <>
                 <Loader2 className="w-6 h-6 animate-spin" />
-                <span>Scanning...</span>
+                <span>{t("scan.scanning")}</span>
               </>
             ) : (
-              "Scan Food"
+              <span>{t("scan.scanButton")}</span>
             )}
           </motion.button>
         </motion.div>
