@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ScanPage from "./pages/ScanPage";
+import Footer from "./components/Footer";
 
 function App() {
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/scan" element={<ScanPage />} />
         </Routes>
+        <Footer />
       </div>
     </ThemeProvider>
   );
