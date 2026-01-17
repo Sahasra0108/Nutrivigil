@@ -54,18 +54,12 @@ function ScanPage() {
 
     try {
       // send a JSON object, not FormData, because there is no NEW image
-      // const res = await axios.post("https://nutb.onrender.com/analyze", {
-      //   condition: condition,
-      //   query: followUpQuestion,
-      //   foodName: result.food_name
-      // });
-
-      const res = await axios.post("https://localhost:5000/analyze", {
+      const res = await axios.post("https://nutb.onrender.com/analyze", {
         condition: condition,
         query: followUpQuestion,
         foodName: result.food_name
       });
-
+ 
       // Update the result state with the AI's answer to the voice query
       setVoiceAnswer(res.data);
       setFollowUpQuestion("");
@@ -140,14 +134,14 @@ function ScanPage() {
   };
 
   const speak = (text) => {
-    window.speechSynthesis.cancel(); 
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
 
-  
+
     const langMap = { en: 'en-US', hi: 'hi-IN', es: 'es-ES', fr: 'fr-FR' };
     utterance.lang = langMap[i18n.language] || 'en-US';
 
-    utterance.pitch = 1.1;  
+    utterance.pitch = 1.1;
     utterance.rate = 1.0;
 
     window.speechSynthesis.speak(utterance);
@@ -348,7 +342,7 @@ function ScanPage() {
                 {TrafficIcon[result.traffic_light]}
                 <h2 className={`text-xl font-bold transition-colors ${theme === 'dark' ? "text-white" : "text-gray-900"
                   }`}>
-                 {TrafficTitle[result.traffic_light]}
+                  {TrafficTitle[result.traffic_light]}
                 </h2>
               </div>
 
@@ -375,6 +369,24 @@ function ScanPage() {
                       Suggestion:
                     </strong>
                     {result.suggestion}
+                  </div>
+                )}
+                {result.alternatives && result.traffic_light !== "green" && (
+                  <div className={`pt-4 mt-4 border-t ${theme === 'dark' ? "border-blue-400/10" : "border-blue-200"}`}>
+                    <strong className={`text-xl block mb-2 font-bold flex items-center gap-2 ${theme === 'dark' ? "text-green-400" : "text-green-600"}`}>
+                      <CheckCircle size={16} /> Healthy Swaps:
+                    </strong>
+                    <div className="grid grid-cols-1 gap-2">
+                      {result.alternatives.map((alt, idx) => (
+                        <div
+                          key={idx}
+                          className={`p-3 rounded-xl border ${theme === 'dark' ? "bg-green-500/5 border-green-500/10" : "bg-green-50 border-green-100"}`}
+                        >
+                          <p className="font-bold ">{alt.name}</p>
+                          <p className="opacity-70 pt-4">{alt.why}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
